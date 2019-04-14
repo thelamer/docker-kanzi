@@ -11,10 +11,12 @@ RUN \
  apk add --no-cache --virtual=build-dependencies \
 	g++ \
 	gcc \
-    python2-dev && \
+	openssl-dev \
+	python2-dev && \
  echo "**** install app ****" && \
  git clone --depth 1 https://github.com/m0ngr31/kanzi.git /app/kanzi && \
  cd /app/kanzi && \
+  pip install --no-cache-dir pip==9.0.3 && \
   pip install --no-cache-dir -U \
   python-Levenshtein && \
   pip install --no-cache-dir -U -r \
