@@ -1,0 +1,45 @@
+---
+
+# project information
+project_name: kanzi
+project_url: "https://github.com/m0ngr31/kanzi"
+project_logo: "https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/kanzi.png"
+project_blurb: "[{{ project_name|capitalize }}]({{ project_url }}) is a skill for Amazon Alexa that allows you to control one or more instances of Kodi with your voice.."
+project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
+
+# supported architectures
+available_architectures:
+  - { arch: "{{ arch_x86_64 }}", tag: "amd64-latest"}
+  - { arch: "{{ arch_arm64 }}", tag: "arm64v8-latest"}
+  - { arch: "{{ arch_armhf }}", tag: "arm32v7-latest"}
+
+# development version
+development_versions: false
+development_versions_items:
+  - { tag: "latest", desc: "Stable" }
+  - { tag: "development", desc: "Releases from the `develop` branch" }
+
+
+# container parameters
+common_param_env_vars_enabled: true #PGID, PUID, etc, you can set it to 'optional'
+param_container_name: "{{ project_name }}"
+param_usage_include_env: true
+param_env_vars:
+  - { env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London." }
+param_usage_include_vols: true
+param_volumes:
+  - { vol_path: "/config", vol_host_path: "</path/to/appdata/config>", desc: "Configuration files." }
+param_usage_include_ports: true
+param_ports:
+  - { external_port: "8000", internal_port: "8000", port_desc: "Application Port" }
+
+# application setup block
+app_setup_block_enabled: true
+app_setup_block: "Kanzi communicates on port 8000, Edit `kodi.config` in `/config` and restart the container."
+
+app_setup_nginx_reverse_proxy_snippet: true
+app_setup_nginx_reverse_proxy_block: ""
+# changelog
+
+changelogs:
+  - { date: "13.04.15:", desc: "Initial Release." }

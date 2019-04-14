@@ -1,0 +1,14 @@
+#!/usr/bin/with-contenv bash
+
+# permissions
+chown -R abc:abc \
+	/app \
+	/config
+
+# create symlinks for kodi.config
+[[ ! -f /config/kodi.config ]] && \
+	cp /defaults/kodi.config /config/kodi.config
+[[ -f /app/kanzi/kodi.config ]] && \
+	rm /app/kanzi/kodi.config
+[[ ! -L /app/kanzi/kodi.config ]] && \
+ln -s /config/kodi.config /app/kanzi/kodi.config
